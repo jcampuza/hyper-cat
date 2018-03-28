@@ -22,6 +22,10 @@ function clearCatUrl(dispatch) {
     dispatch({ type: HYPER_CAT_CLEAR });
 }
 
+function bindActionToDispatch(dispatch, fn) {
+    return () => fn(dispatch);
+}
+
 exports.middleware = ({ dispatch }) => (next) => async (action) => {
     if ('SESSION_ADD_DATA' === action.type) {
         const { data } = action;
@@ -66,9 +70,16 @@ exports.mapTermsState = (state, map) => {
     });
 }
 
+exports.mapTermsDispatch = (dispatch, map) => {
+    return Object.assign(map, {
+        clearCat: bindActionToDispatch(dispatch, clearCatUrl)
+    });
+}
+
 const passProps = (uid, parentProps, props) => {
     return Object.assign(props, {
-        catUrl: parentProps.catUrl
+        catUrl: parentProps.catUrl,
+        clearCat: parentProps.clearCat
     });
 }
 
@@ -101,9 +112,9 @@ exports.decorateTerm = (Term, { React, notify }) => {
                     maxWidth: '100%',
                     maxHeight: '100%'
                 },
-                src: catUrl
-                }
-            );
+                src: catUrl,
+                onClick: this.props.clearCat
+            });
 
             const imageContainer = React.createElement('div', { style: {
                 position: 'absolute',
