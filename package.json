@@ -1,0 +1,15 @@
+{
+  "name": "hyper-cat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "description": "Fetch a cat to show in hyperterm :)",
+  "keywords": [
+    "hyper",
+    "hyperterm"
+  ],
+  "author": "Joseph Campuzano <campuzanojoseph@gmail.com>",
+  "dependencies": {
+    "node-fetch": "^2.1.2"
+  }
+}
